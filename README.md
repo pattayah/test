@@ -1,5 +1,4 @@
 # test
-# Wistia Technical Project
 This project is about synchronizing large amounts of data between different services, something we do daily at Wistia. Imagine a system where messages are placed onto a `queue`; a `processor` takes messages off the `queue`, performs some operations on them, and publishes the results to the `client`. We're interested in developing a scalable and efficient `processor`.
 
 ### System Description
