@@ -8,7 +8,7 @@ nsqd = queue.nsqd.first			# DO I DO THIS OR NSQLOOKUP BELOW???
 # client initialization
 client = Nsq::Consumer.new(
 	nsqlookupd: queue,			# DO I DO THIS OR NSQD ABOVE???
-	max_in_flight: 20
+	max_in_flight: 20			# max number of messages to have in flight at a time
 	)
 
 play_count = Hash.new(0)
