@@ -14,28 +14,28 @@ nsqd = queue.nsqd.first                     # DO I DO THIS OR CAN I KEEP THE PRO
 # HOW DO I MAKE SURE THE PLAY COUNT IS ONLY PUBLISHED IF IT'S CHANGED SINCE IT WAS LAST PUBLISHED???
 
 class Processor
-
+	
 	def initialize
 		@count = {}
-        @over_100 = {}
-    end
+        	@over_100 = {}
+    	end
 
 	# count the plays
 	def play_count
 		parsed_msg = JSON.parse(next_message)
-        video_id = parsed_msg["video_id"]
-        @count[video_id] += 1
+        	video_id = parsed_msg["video_id"]
+        	@count[video_id] += 1
 	end
 
 	# publish to the client
 	def publish(video_id)
-        if @count[video_id] < 100           # videos with under 100 plays
-            # publish to client immediately
-            Nsq.client = Logger.new(STDOUT)
-        elsif @over_100.length < 20         # storing up to 20 videos with over 100 plays
-            @over_100[video_id] = @count[video_id]
-        else                                # publish to the client
-            Nsq.client = Logger.new(STDOUT)
+		if @count[video_id] < 100           # videos with under 100 plays
+        		# publish to client immediately
+            		Nsq.client = Logger.new(STDOUT)
+        	elsif @over_100.length < 20         # storing up to 20 videos with over 100 plays
+            		@over_100[video_id] = @count[video_id]
+        	else                                # publish to the client
+        		 Nsq.client = Logger.new(STDOUT)
 		end
 	end
 end
